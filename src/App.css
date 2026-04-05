@@ -210,6 +210,16 @@
   50% { transform: translateX(-50%) translateY(8px); }
 }
 
+.scroll-hint--up {
+  animation-name: hintBounceUp;
+  cursor: pointer;
+}
+
+@keyframes hintBounceUp {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-8px); }
+}
+
 /* ===== TIME BLOCK ===== */
 .time-block {
   display: inline-flex;
@@ -373,13 +383,14 @@
 .route-block {
   display: inline-block;
   padding: 14px 28px;
-  border: var(--border-w) solid rgba(255,255,255,0.5);
+  border: var(--border-w) solid var(--black);
   border-radius: var(--radius);
   font-family: var(--font-heading);
   font-weight: 700;
   font-size: clamp(16px, 3vw, 24px);
   letter-spacing: 0.06em;
-  background: rgba(255,255,255,0.1);
+  background: var(--white);
+  color: var(--black);
 }
 
 /* ===== CLOSING ===== */
@@ -456,7 +467,7 @@
   font-size: clamp(20px, 4vw, 32px);
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  background: var(--white);
+  background: var(--green);
   color: var(--black);
   transform: rotate(1deg);
 }

@@ -61,6 +61,14 @@ function IconChevronDown() {
   )
 }
 
+function IconChevronUp() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="6 15 12 9 18 15" />
+    </svg>
+  )
+}
+
 /* ── Stop propagation helper for interactive elements ── */
 function stop(e: React.MouseEvent) {
   e.stopPropagation()
@@ -168,6 +176,10 @@ function App() {
             Google Maps
           </a>
         </div>
+        <div className="scroll-hint">
+          <span>Гортай</span>
+          <IconChevronDown />
+        </div>
       </section>
 
       {/* ══════ SLIDE 3 — TRANSFER ══════ */}
@@ -198,10 +210,14 @@ function App() {
             Garden в Instagram
           </a>
         </div>
+        <div className="scroll-hint">
+          <span>Гортай</span>
+          <IconChevronDown />
+        </div>
       </section>
 
       {/* ══════ SLIDE 4 — PARTY / DRESS CODE ══════ */}
-      <section id="slide-3" className="slide slide--pink">
+      <section id="slide-3" className="slide slide--white">
         <span className="slide-counter">04 / 08</span>
         <div className="slide-inner">
           <div className="slide-emoji" aria-hidden="true">💃</div>
@@ -221,6 +237,10 @@ function App() {
             </div>
           </div>
         </div>
+        <div className="scroll-hint">
+          <span>Гортай</span>
+          <IconChevronDown />
+        </div>
       </section>
 
       {/* ══════ SLIDE 5 — RETURN HOME ══════ */}
@@ -235,6 +255,10 @@ function App() {
             Хоросно → Львів → Шептицький
           </div>
           <p>Довеземо з вітерцем!</p>
+        </div>
+        <div className="scroll-hint">
+          <span>Гортай</span>
+          <IconChevronDown />
         </div>
       </section>
 
@@ -261,6 +285,10 @@ function App() {
               <p>Ваші малюки — це теж гості! Але попередьте нас, якщо їм потрібне окреме дитяче крісло чи меню.</p>
             </div>
           </div>
+        </div>
+        <div className="scroll-hint">
+          <span>Гортай</span>
+          <IconChevronDown />
         </div>
       </section>
 
@@ -293,6 +321,10 @@ function App() {
             </a>
           </div>
         </div>
+        <div className="scroll-hint">
+          <span>Гортай</span>
+          <IconChevronDown />
+        </div>
       </section>
 
       {/* ══════ SLIDE 8 — RSVP ══════ */}
@@ -300,7 +332,7 @@ function App() {
         <span className="slide-counter">08 / 08</span>
         <div className="slide-inner">
           <div className="slide-emoji" aria-hidden="true">📝</div>
-          <h2>RSVP (Ваш комміт)</h2>
+          <h2>RSVP / Ваш комміт</h2>
           <p>Будь ласка, заповніть форму до <strong>25 червня 2026 року</strong>, щоб ми встигли замовити достатньо ігристого!</p>
           <div className="rsvp-list">
             <div className="rsvp-item">
@@ -321,6 +353,10 @@ function App() {
             </div>
           </div>
           <div className="closing">З любов'ю, Павло та Катруся! 🐸</div>
+        </div>
+        <div className="scroll-hint scroll-hint--up" onClick={(e) => { e.stopPropagation(); scrollToSlide(0) }}>
+          <IconChevronUp />
+          <span>Нагору</span>
         </div>
       </section>
     </div>
