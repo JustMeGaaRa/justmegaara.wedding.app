@@ -69,11 +69,6 @@ function IconChevronUp() {
   )
 }
 
-/* ── Stop propagation helper for interactive elements ── */
-function stop(e: React.MouseEvent) {
-  e.stopPropagation()
-}
-
 /* ── App ── */
 
 function App() {
@@ -116,7 +111,7 @@ function App() {
   /* Keyboard navigation */
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
-      if (e.key === ' ' || e.key === 'Enter') {
+      if (e.key === ' ') {
         e.preventDefault()
         goNext()
       }
@@ -125,15 +120,8 @@ function App() {
     return () => window.removeEventListener('keydown', onKey)
   }, [goNext])
 
-  /* Click / tap on container to go next */
-  function handleContainerClick(e: React.MouseEvent) {
-    const target = e.target as HTMLElement
-    if (target.closest('a, button, .neo-btn')) return
-    goNext()
-  }
-
   return (
-    <div onClick={handleContainerClick}>
+    <div>
 
       {/* ══════ SLIDE 1 — HERO ══════ */}
       <section id="slide-0" className="slide slide--yellow">
@@ -173,7 +161,7 @@ function App() {
             onClick={stop}
           >
             <IconMapPin />
-            Google Maps
+            Показати на карті
           </a>
         </div>
         <div className="scroll-hint">
@@ -200,6 +188,16 @@ function App() {
             </div>
           </div>
           <a
+            href="https://maps.app.goo.gl/ABKqmJyAVofQ23968"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="neo-btn neo-btn--orange"
+            onClick={stop}
+          >
+            <IconMapPin />
+            Показати на карті
+          </a>
+          <a
             href="https://www.instagram.com/garden.prostir/"
             target="_blank"
             rel="noopener noreferrer"
@@ -220,7 +218,7 @@ function App() {
       <section id="slide-3" className="slide slide--white">
         <span className="slide-counter">04 / 08</span>
         <div className="slide-inner">
-          <div className="slide-emoji" aria-hidden="true">💃</div>
+          <div className="slide-emoji" aria-hidden="true">💃🏻</div>
           <h2>Party Time & Атмосфера</h2>
           <p>Ніяких незручних костюмів (якщо ви самі того не хочете).</p>
           <div className="dress-badge">Smart Casual & Happy Face</div>
@@ -249,7 +247,7 @@ function App() {
         <div className="slide-inner">
           <div className="slide-emoji" aria-hidden="true">🏠</div>
           <h2>Повернення додому</h2>
-          <div className="time-block">23:00</div>
+          <div className="time-block">22:30</div>
           <p>Вечірка офіційно переходить у фазу «сон», тому на локацію приїде трансфер.</p>
           <div className="route-block">
             Хоросно → Львів → Шептицький
@@ -263,7 +261,7 @@ function App() {
       </section>
 
       {/* ══════ SLIDE 6 — IMPORTANT NOTES ══════ */}
-      <section id="slide-5" className="slide slide--yellow">
+      <section id="slide-5" className="slide slide--green">
         <span className="slide-counter">06 / 08</span>
         <div className="slide-inner">
           <div className="slide-emoji" aria-hidden="true">💡</div>
@@ -313,7 +311,7 @@ function App() {
               href="https://t.me/nadya_chayka"
               target="_blank"
               rel="noopener noreferrer"
-              className="neo-btn neo-btn--blue"
+              className="neo-btn neo-btn--orange"
               onClick={stop}
             >
               <IconTelegram />
@@ -332,7 +330,7 @@ function App() {
         <span className="slide-counter">08 / 08</span>
         <div className="slide-inner">
           <div className="slide-emoji" aria-hidden="true">📝</div>
-          <h2>RSVP / Ваш комміт</h2>
+          <h2>RSVP (Ваш комміт)</h2>
           <p>Будь ласка, заповніть форму до <strong>25 червня 2026 року</strong>, щоб ми встигли замовити достатньо ігристого!</p>
           <div className="rsvp-list">
             <div className="rsvp-item">

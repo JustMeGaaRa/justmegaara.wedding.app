@@ -9,7 +9,6 @@
   padding: clamp(24px, 6vw, 64px) clamp(20px, 5vw, 80px);
   position: relative;
   overflow: hidden;
-  cursor: pointer;
   user-select: none;
   -webkit-user-select: none;
 }
@@ -22,6 +21,13 @@
   align-items: center;
   text-align: center;
   gap: clamp(16px, 3vw, 28px);
+}
+
+/* ===== FLUENT EMOJI ===== */
+.slide-emoji,
+.hero-frog,
+.info-card-icon {
+  font-family: 'Fluent Emoji Color', sans-serif;
 }
 
 /* ===== TYPOGRAPHY ===== */
