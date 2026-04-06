@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#FFEA2D"/>
+  <rect x="40" y="40" width="1120" height="550" rx="16" fill="#FAFAFA" stroke="#000" stroke-width="4"/>
+  <rect x="40" y="40" width="1120" height="550" rx="16" fill="none" stroke="#000" stroke-width="4" transform="translate(6,6)" opacity="0.15"/>
+  <text x="600" y="150" text-anchor="middle" font-size="80">🐸</text>
+  <text x="600" y="260" text-anchor="middle" font-family="system-ui,sans-serif" font-weight="800" font-size="72" fill="#000" letter-spacing="-2">ВЕСІЛЛЯ</text>
+  <text x="600" y="340" text-anchor="middle" font-family="system-ui,sans-serif" font-weight="800" font-size="72" fill="#000" letter-spacing="-2">ПАВЛА ТА КАТРУСІ</text>
+  <text x="600" y="400" text-anchor="middle" font-family="system-ui,sans-serif" font-weight="700" font-size="28" fill="#70149A" letter-spacing="4" text-transform="uppercase">OPERATION «ZHABA»</text>
+  <rect x="430" y="440" width="340" height="70" rx="12" fill="#FF572D" stroke="#000" stroke-width="3"/>
+  <text x="600" y="488" text-anchor="middle" font-family="system-ui,sans-serif" font-weight="800" font-size="32" fill="#FFF">1 СЕРПНЯ 2026</text>
+  <circle cx="120" cy="120" r="30" fill="#FF005D" stroke="#000" stroke-width="3"/>
+  <circle cx="1080" cy="520" r="22" fill="#74C044" stroke="#000" stroke-width="3"/>
+  <rect x="1020" y="100" width="50" height="50" rx="8" fill="#3C489B" stroke="#000" stroke-width="3" transform="rotate(12,1045,125)"/>
+</svg>
