@@ -22,9 +22,6 @@
   --shadow: 5px 5px 0 var(--black);
   --shadow-lg: 8px 8px 0 var(--black);
   --radius: 10px;
-
-  --font-body: 'DM Sans', system-ui, sans-serif;
-  --font-heading: 'Bricolage Grotesque', system-ui, sans-serif;
 }
 
 html {
@@ -42,7 +39,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-#root {
+#wedding-container {
   height: 100dvh;
   overflow-y: auto;
   scroll-snap-type: y mandatory;
@@ -52,9 +49,10 @@ body {
 h1, h2, h3 {
   font-family: var(--font-heading);
   font-weight: 800;
-  line-height: 1.1;
+  line-height: 0.95;
   text-transform: uppercase;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.05em;
+  font-variation-settings: "opsz" 96;
 }
 
 a {
