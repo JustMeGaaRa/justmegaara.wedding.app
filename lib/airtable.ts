@@ -39,6 +39,55 @@ export async function getRSVP(invitationId: string) {
     }
 }
 
+export async function getAllRSVPs() {
+    const table = getTable();
+    if (!table) return [];
+
+    try {
+        const records = await table.select().all();
+        return records.map(r => ({
+            id: r.id,
+            fields: r.fields as {
+                invitation_id: string;
+                guest_name: string;
+                opens?: number;
+                has_rsvp?: boolean;
+                [key: string]: any;
+            }
+        }));
+    } catch (error) {
+        console.error('Error fetching all RSVPs:', error);
+        return [];
+    }
+}
+
+export async function trackOpen(invitationId: string, guestName: string) {
+    const table = getTable();
+    if (!table) return;
+
+    try {
+        const existing = await getRSVP(invitationId);
+
+        if (existing) {
+            const currentOpens = (existing.fields['opens'] as number) || 0;
+            await table.update(existing.id, {
+                opens: currentOpens + 1
+            });
+            console.log(`Incremented opens for ${invitationId} to ${currentOpens + 1}`);
+        } else {
+            await table.create({
+                invitation_id: invitationId,
+                guest_name: guestName,
+                opens: 1,
+                has_rsvp: false
+            });
+            console.log(`Created tracking record for ${invitationId}`);
+        }
+    } catch (error) {
+        console.error('Error tracking open in Airtable:', error);
+    }
+}
+
 export async function saveRSVP(
     invitationId: string,
     guestName: string,
@@ -54,6 +103,7 @@ export async function saveRSVP(
     const fields: any = {
         invitation_id: invitationId,
         guest_name: guestName,
+        has_rsvp: true,
     };
 
     // Map answers by question id

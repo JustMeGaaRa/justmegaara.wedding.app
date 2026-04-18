@@ -5,6 +5,8 @@ import { useState, useEffect } from 'react';
 interface Guest {
   name: string;
   id: string;
+  opens?: number;
+  hasRSVP?: boolean;
 }
 
 export default function HostDashboard({ guests, baseUrl }: { guests: Guest[], baseUrl: string }) {
@@ -40,6 +42,8 @@ export default function HostDashboard({ guests, baseUrl }: { guests: Guest[], ba
             <tr>
               <th>Ім'я гостя</th>
               <th>ID</th>
+              <th>Переглядів</th>
+              <th>RSVP</th>
               <th>Дія</th>
             </tr>
           </thead>
@@ -49,6 +53,16 @@ export default function HostDashboard({ guests, baseUrl }: { guests: Guest[], ba
                 <td>{guest.name}</td>
                 <td>
                     <code className="guest-id">{guest.id}</code>
+                </td>
+                <td style={{ textAlign: 'center' }}>
+                  <span className="stats-badge">{guest.opens || 0}</span>
+                </td>
+                <td style={{ textAlign: 'center' }}>
+                  {guest.hasRSVP ? (
+                    <span className="rsvp-badge active">Так ✅</span>
+                  ) : (
+                    <span className="rsvp-badge">Ні ⏳</span>
+                  )}
                 </td>
                 <td>
                   <button 
@@ -169,11 +183,38 @@ export default function HostDashboard({ guests, baseUrl }: { guests: Guest[], ba
         .neo-btn--green { background: #74C044; color: var(--black); }
         .neo-btn--yellow { background: #FFEA2D; color: var(--black); }
 
-        @media (max-width: 600px) {
+        @media (max-width: 800px) {
             .host-table th:nth-child(2),
-            .host-table td:nth-child(2) {
+            .host-table td:nth-child(2),
+            .host-table th:nth-child(3),
+            .host-table td:nth-child(3) {
                 display: none;
             }
+        }
+
+        .stats-badge {
+            background: var(--blue);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            border: 2px solid var(--black);
+        }
+
+        .rsvp-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-weight: 800;
+            font-size: 14px;
+            border: 2px solid var(--black);
+            background: #eee;
+        }
+
+        .rsvp-badge.active {
+            background: var(--green);
+            color: var(--black);
         }
       `}</style>
     </div>
