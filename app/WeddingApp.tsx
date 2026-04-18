@@ -1,6 +1,7 @@
 'use client'
 
-import { useCallback, useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { QuestionnaireQuestion } from '@/lib/questionnaire'
 import './wedding.css'
 
 const TOTAL_SLIDES = 8
@@ -62,10 +63,15 @@ function IconChevronUp() {
 
 interface WeddingAppProps {
   guestName: string
+  inviteId: string
+  questions: QuestionnaireQuestion[]
 }
 
-export default function WeddingApp({ guestName }: WeddingAppProps) {
+export default function WeddingApp({ guestName, inviteId, questions }: WeddingAppProps) {
   const currentSlide = useRef(0)
+  const [answers, setAnswers] = useState<Record<number, string>>({})
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitted, setSubmitted] = useState(false)
 
   const scrollToSlide = useCallback((index: number) => {
     const el = document.getElementById(`slide-${index}`)
@@ -104,7 +110,7 @@ export default function WeddingApp({ guestName }: WeddingAppProps) {
   /* Keyboard navigation */
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
-      if (e.key === ' ') {
+      if (e.key === ' ' && document.activeElement?.tagName !== 'TEXTAREA' && document.activeElement?.tagName !== 'INPUT') {
         e.preventDefault()
         goNext()
       }
@@ -112,6 +118,28 @@ export default function WeddingApp({ guestName }: WeddingAppProps) {
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
   }, [goNext])
+
+  const handleOptionChange = (questionIdx: number, option: string) => {
+    setAnswers(prev => ({ ...prev, [questionIdx]: option }))
+  }
+
+  const handleTextChange = (questionIdx: number, text: string) => {
+    if (text.length <= 1000) {
+      setAnswers(prev => ({ ...prev, [questionIdx]: text }))
+    }
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    
+    // Simulate API call
+    console.log('Submitting RSVP:', { inviteId, guestName, answers })
+    await new Promise(resolve => setTimeout(resolve, 1500))
+    
+    setIsSubmitting(false)
+    setSubmitted(true)
+  }
 
   return (
     <main id="wedding-container">
@@ -290,7 +318,6 @@ export default function WeddingApp({ guestName }: WeddingAppProps) {
           <h2>Техпідтримка весілля</h2>
           <p>Якщо ви заблукали, забули, який сьогодні рік, або просто хочете привітати — пишіть нашій феї-організатору:</p>
           <div className="contact-name">Надія</div>
-          <div className="btn-row">
             <a
               href="tel:+380937450263"
               className="neo-btn neo-btn--green"
@@ -310,7 +337,6 @@ export default function WeddingApp({ guestName }: WeddingAppProps) {
               @nadya_chayka
             </a>
           </div>
-        </div>
         <div className="scroll-hint">
           <span>Гортай</span>
           <IconChevronDown />
@@ -323,25 +349,65 @@ export default function WeddingApp({ guestName }: WeddingAppProps) {
         <div className="slide-inner">
           <div className="slide-emoji" aria-hidden="true">📝</div>
           <h2>RSVP (Ваш комміт)</h2>
-          <p>Будь ласка, заповніть форму до <strong>25 червня 2026 року</strong>, щоб ми встигли замовити достатньо ігристого!</p>
-          <div className="rsvp-list">
-            <div className="rsvp-item">
-              <div className="rsvp-item-label">Трансфер до собору:</div>
-              <div className="rsvp-item-options">Потрібен / Буду на своєму літаку</div>
+          
+          {submitted ? (
+            <div className="success-message">
+              <h3>Дякуємо, {guestName}!</h3>
+              <p>Ваші відповіді збережено. До зустрічі на весіллі! 🐸</p>
+              <div className="id-badge">ID: {inviteId}</div>
             </div>
-            <div className="rsvp-item">
-              <div className="rsvp-item-label">Трансфер на локацію:</div>
-              <div className="rsvp-item-options">Їду з усіма / Доберусь сам</div>
-            </div>
-            <div className="rsvp-item">
-              <div className="rsvp-item-label">Рівень відриву:</div>
-              <div className="rsvp-item-options">Буду запалювати на танцполі! / Буду чілити з дітьми</div>
-            </div>
-            <div className="rsvp-item">
-              <div className="rsvp-item-label">Харчові «баги»:</div>
-              <div className="rsvp-item-options">Алергії, вегетаріанство чи нелюбов до цибулі — пишіть нам</div>
-            </div>
-          </div>
+          ) : (
+            <form className="rsvp-form" onSubmit={handleSubmit} onClick={stop}>
+              <p>Будь ласка, заповніть форму до <strong>25 червня 2026 року</strong>, щоб ми встигли замовити достатньо ігристого!</p>
+              
+              <div className="questionnaire-list">
+                {questions.map((q, idx) => (
+                  <div key={idx} className="rsvp-item">
+                    <div className="rsvp-item-label">{q.text}</div>
+                    
+                    {q.type === 'single-option' ? (
+                      <div className="checkbox-row">
+                        {q.options?.map((opt, optIdx) => (
+                          <label key={optIdx} className="custom-checkbox-label">
+                            <input 
+                              type="radio" 
+                              name={`q-${idx}`} 
+                              value={opt} 
+                              checked={answers[idx] === opt}
+                              onChange={() => handleOptionChange(idx, opt)}
+                              required
+                            />
+                            <span className="checkbox-box" />
+                            <span className="option-text">{opt}</span>
+                          </label>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="textarea-wrapper">
+                        <textarea 
+                          placeholder={q.placeholder}
+                          value={answers[idx] || ''}
+                          onChange={(e) => handleTextChange(idx, e.target.value)}
+                          maxLength={1000}
+                          className="custom-textarea"
+                        />
+                        <div className="char-count">{(answers[idx] || '').length} / 1000</div>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+
+              <button 
+                type="submit" 
+                className="neo-btn neo-btn--green submit-btn" 
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? 'Відправляємо...' : 'Підтвердити участь'}
+              </button>
+            </form>
+          )}
+
           <div className="closing">З любов'ю, Павло та Катруся! 🐸</div>
         </div>
         <div className="scroll-hint scroll-hint--up" onClick={stop}>
