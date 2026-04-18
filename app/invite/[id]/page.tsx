@@ -1,4 +1,5 @@
 import { getGuestById } from "@/lib/guests";
+import { getQuestionnaire } from "@/lib/questionnaire";
 import WeddingApp from "@/app/WeddingApp";
 import { redirect } from "next/navigation";
 
@@ -14,5 +15,11 @@ export default async function InvitePage({ params }: PageProps) {
     redirect('/invite/not-found');
   }
 
-  return <WeddingApp guestName={guest.name} />;
+  const questionnaire = getQuestionnaire();
+
+  return <WeddingApp 
+    guestName={guest.name} 
+    inviteId={guest.id} 
+    questions={questionnaire} 
+  />;
 }
