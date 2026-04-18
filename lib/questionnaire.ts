@@ -1,6 +1,7 @@
 import questionnaire from '../data/questionnaire.json';
 
 export interface QuestionnaireQuestion {
+  id: string;
   type: 'single-option' | 'textarea';
   text: string;
   options?: string[];

@@ -61,17 +61,21 @@ function IconChevronUp() {
   )
 }
 
+import { submitRSVP } from './actions/rsvp'
+
 interface WeddingAppProps {
   guestName: string
   inviteId: string
   questions: QuestionnaireQuestion[]
+  initialAnswers?: Record<number, string>
 }
 
-export default function WeddingApp({ guestName, inviteId, questions }: WeddingAppProps) {
+export default function WeddingApp({ guestName, inviteId, questions, initialAnswers = {} }: WeddingAppProps) {
   const currentSlide = useRef(0)
-  const [answers, setAnswers] = useState<Record<number, string>>({})
+  const [answers, setAnswers] = useState<Record<number, string>>(initialAnswers)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   const scrollToSlide = useCallback((index: number) => {
     const el = document.getElementById(`slide-${index}`)
@@ -132,13 +136,20 @@ export default function WeddingApp({ guestName, inviteId, questions }: WeddingAp
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
+    setError(null)
     
-    // Simulate API call
-    console.log('Submitting RSVP:', { inviteId, guestName, answers })
-    await new Promise(resolve => setTimeout(resolve, 1500))
-    
-    setIsSubmitting(false)
-    setSubmitted(true)
+    try {
+      const result = await submitRSVP(inviteId, guestName, answers)
+      if (result.success) {
+        setSubmitted(true)
+      } else {
+        setError(result.error || 'Щось пішло не так. Спробуйте ще раз.')
+      }
+    } catch (err) {
+      setError('Помилка з\'єднання з сервером.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -353,8 +364,7 @@ export default function WeddingApp({ guestName, inviteId, questions }: WeddingAp
           {submitted ? (
             <div className="success-message">
               <h3>Дякуємо, {guestName}!</h3>
-              <p>Ваші відповіді збережено. До зустрічі на весіллі! 🐸</p>
-              <div className="id-badge">ID: {inviteId}</div>
+              <p>Ваші відповіді збережено. До зустрічі на весіллі!</p>
             </div>
           ) : (
             <form className="rsvp-form" onSubmit={handleSubmit} onClick={stop}>
@@ -398,12 +408,14 @@ export default function WeddingApp({ guestName, inviteId, questions }: WeddingAp
                 ))}
               </div>
 
+              {error && <div className="error-message" style={{ color: '#ff572d', marginBottom: '1rem', fontWeight: 'bold' }}>{error}</div>}
+
               <button 
                 type="submit" 
                 className="neo-btn neo-btn--green submit-btn" 
                 disabled={isSubmitting}
               >
-                {isSubmitting ? 'Відправляємо...' : 'Підтвердити участь'}
+                {isSubmitting ? 'Відправляємо...' : 'Ми будемо!'}
               </button>
             </form>
           )}
