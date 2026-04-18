@@ -5,12 +5,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: clamp(24px, 6vw, 64px) clamp(20px, 5vw, 80px);
+  /* padding-bottom increased to accommodate absolute scroll-hint */
+  padding: clamp(60px, 8vw, 80px) clamp(20px, 5vw, 80px) clamp(100px, 12vw, 140px);
   position: relative;
-  overflow: hidden;
+  /* Remove overflow hidden to allow content growth if needed */
+  overflow-y: visible;
   user-select: none;
   -webkit-user-select: none;
+  box-sizing: border-box;
 }
 
 .slide-inner {
@@ -21,6 +23,8 @@
   align-items: center;
   text-align: center;
   gap: clamp(16px, 3vw, 28px);
+  /* Use margin: auto to center content vertically while allowing it to push to top if tall */
+  margin: auto 0;
 }
 
 /* ===== FLUENT EMOJI ===== */
@@ -213,7 +217,7 @@
 
 @keyframes hintBounce {
   0%, 100% { transform: translateX(-50%) translateY(0); }
-  50% { transform: translateX(-50%) translateY(8px); }
+  50% { transform: translateX(-50%) translateY(6px); }
 }
 
 .scroll-hint--up {
@@ -223,7 +227,7 @@
 
 @keyframes hintBounceUp {
   0%, 100% { transform: translateX(-50%) translateY(0); }
-  50% { transform: translateX(-50%) translateY(-8px); }
+  50% { transform: translateX(-50%) translateY(-6px); }
 }
 
 /* ===== TIME BLOCK ===== */
@@ -369,6 +373,11 @@
   background: var(--white);
   color: var(--black);
   text-align: left;
+  transition: transform 0.2s;
+}
+
+.rsvp-item:hover {
+  transform: translateX(4px);
 }
 
 .rsvp-item-label {
@@ -516,6 +525,39 @@
 
 .sticker--sq {
   border-radius: 6px;
+}
+
+/* ===== COMPACT MODES FOR SMALL SCREENS ===== */
+@media (max-height: 740px) {
+  .slide-inner {
+    gap: clamp(10px, 2vh, 20px);
+  }
+  .rsvp-list {
+    gap: 8px;
+  }
+  .rsvp-item {
+    padding: 10px 16px;
+  }
+  .slide-emoji {
+    font-size: clamp(40px, 8vh, 60px);
+  }
+  .closing {
+    font-size: clamp(16px, 3vh, 22px);
+    margin-top: 4px;
+  }
+}
+
+@media (max-height: 600px) {
+  .slide {
+    padding-top: 40px;
+    padding-bottom: 90px;
+  }
+  .slide-counter {
+    top: 10px;
+  }
+  .hero-frog {
+    font-size: 60px;
+  }
 }
 
 /* ===== ACCESSIBILITY ===== */

@@ -16,6 +16,8 @@ function getGuestName(): string {
 
 const guestName = getGuestName()
 
+const stop = (e: React.MouseEvent) => e.stopPropagation()
+
 /* ── Inline SVG Icons ── */
 
 function IconMapPin() {
@@ -352,9 +354,10 @@ function App() {
           </div>
           <div className="closing">З любов'ю, Павло та Катруся! 🐸</div>
         </div>
-        <div className="scroll-hint scroll-hint--up" onClick={(e) => { e.stopPropagation(); scrollToSlide(0) }}>
+        <div className="scroll-hint scroll-hint--up" onClick={stop}>
           <IconChevronUp />
           <span>Нагору</span>
+          <button style={{ position: 'absolute', inset: 0, opacity: 0 }} onClick={() => scrollToSlide(0)} aria-label="Нагору" />
         </div>
       </section>
     </div>
