@@ -1,5 +1,6 @@
 [
   {
+    "id": "transfer_sheptytskyi_lviv",
     "type": "single-option",
     "text": "Трансфер Шептицький → Львів:",
     "options": [
@@ -8,6 +9,7 @@
     ]
   },
   {
+    "id": "transfer_to_location",
     "type": "single-option",
     "text": "Трансфер на локацію святкування:",
     "options": [
@@ -16,6 +18,7 @@
     ]
   },
   {
+    "id": "party_level",
     "type": "single-option",
     "text": "Рівень відриву:",
     "options": [
@@ -24,6 +27,7 @@
     ]
   },
   {
+    "id": "food_allergies",
     "type": "textarea",
     "text": "Харчові «баги»:",
     "placeholder": "Алергії, вегетаріанство чи нелюбов до цибулі — пишіть нам"
