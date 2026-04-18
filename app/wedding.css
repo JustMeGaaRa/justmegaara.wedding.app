@@ -42,16 +42,26 @@
 }
 
 .slide h1 {
-  font-size: clamp(32px, 7vw, 64px);
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: clamp(34px, 8vw, 68px); /* Slightly larger */
   margin: 0;
+  line-height: 0.95;
+  letter-spacing: -0.05em;
 }
 
 .slide h2 {
-  font-size: clamp(24px, 5vw, 44px);
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: clamp(26px, 6vw, 48px);
   margin: 0;
+  line-height: 1;
+  letter-spacing: -0.04em;
 }
 
 .slide h3 {
+  font-family: var(--font-heading);
+  font-weight: 800;
   font-size: clamp(18px, 3.5vw, 28px);
   margin: 0;
 }
@@ -64,11 +74,11 @@
 
 .subtitle {
   font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: clamp(14px, 2.5vw, 20px) !important;
+  font-weight: 800; /* Increased to 800 */
+  font-size: clamp(14px, 2.5vw, 18px) !important;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  opacity: 0.85;
+  letter-spacing: 0.12em; /* More tracking for contrast */
+  opacity: 0.9;
 }
 
 /* ===== NEOBRUTALIST BADGE ===== */
@@ -169,15 +179,16 @@
 .hero-date {
   background: var(--orange);
   color: var(--white);
-  padding: 10px 28px;
+  padding: 12px 32px;
   border: var(--border-w) solid var(--black);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   font-family: var(--font-heading);
   font-weight: 800;
-  font-size: clamp(18px, 3.5vw, 28px);
+  font-size: clamp(20px, 4vw, 32px);
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: -0.05em;
+  line-height: 0.95;
   transform: rotate(-2deg);
 }
 
@@ -186,6 +197,7 @@
   font-weight: 800;
   color: var(--pink);
   display: inline;
+  letter-spacing: -0.06em;
 }
 
 .slide--pink .guest-name,
@@ -205,7 +217,8 @@
   animation: hintBounce 1.8s ease-in-out infinite;
   opacity: 0.7;
   font-size: 13px;
-  font-weight: 700;
+  font-family: var(--font-heading);
+  font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.1em;
 }
@@ -566,7 +579,7 @@
   .scroll-hint {
     animation: none;
   }
-  #root {
+  #wedding-container {
     scroll-behavior: auto;
   }
 }

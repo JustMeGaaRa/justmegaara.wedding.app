@@ -1,20 +1,9 @@
+'use client'
+
 import { useCallback, useEffect, useRef } from 'react'
-import './App.css'
+import './wedding.css'
 
 const TOTAL_SLIDES = 8
-
-function getGuestName(): string {
-  const params = new URLSearchParams(window.location.search)
-  const raw = params.get('guest')
-  if (!raw) return 'друже'
-  try {
-    return decodeURIComponent(raw)
-  } catch {
-    return raw
-  }
-}
-
-const guestName = getGuestName()
 
 const stop = (e: React.MouseEvent) => e.stopPropagation()
 
@@ -71,9 +60,11 @@ function IconChevronUp() {
   )
 }
 
-/* ── App ── */
+interface WeddingAppProps {
+  guestName: string
+}
 
-function App() {
+export default function WeddingApp({ guestName }: WeddingAppProps) {
   const currentSlide = useRef(0)
 
   const scrollToSlide = useCallback((index: number) => {
@@ -91,7 +82,7 @@ function App() {
 
   /* Track which slide is visible via IntersectionObserver */
   useEffect(() => {
-    const container = document.getElementById('root')
+    const container = document.getElementById('wedding-container')
     if (!container) return
     const slides = Array.from(container.querySelectorAll<HTMLElement>('.slide'))
     const observer = new IntersectionObserver(
@@ -123,8 +114,7 @@ function App() {
   }, [goNext])
 
   return (
-    <div>
-
+    <main id="wedding-container">
       {/* ══════ SLIDE 1 — HERO ══════ */}
       <section id="slide-0" className="slide slide--yellow">
         <div className="sticker sticker--1" />
@@ -360,8 +350,6 @@ function App() {
           <button style={{ position: 'absolute', inset: 0, opacity: 0 }} onClick={() => scrollToSlide(0)} aria-label="Нагору" />
         </div>
       </section>
-    </div>
+    </main>
   )
 }
-
-export default App
