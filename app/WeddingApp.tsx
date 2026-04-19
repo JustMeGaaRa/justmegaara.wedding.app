@@ -161,11 +161,11 @@ export default function WeddingApp({ guestName, inviteId, questions, initialAnsw
         <div className="sticker sticker--3 sticker--sq" />
         <span className="slide-counter">01 / 08</span>
         <div className="slide-inner">
-          <div className="hero-frog" aria-hidden="true">🐸</div>
+          <div className="hero-frog" aria-hidden="true">🐳💍🦩</div>
           <h1>Весілля Павла та Катрусі</h1>
-          <p className="subtitle">Operation «Zhaba»</p>
+          <p className="subtitle">Операція «Тропічне диско»</p>
           <p>
-            Привіт, <span className="guest-name">{guestName}</span>! Ми вирішили, що життя занадто коротке, щоб не відсвяткувати наше «Long Live» разом. Готуйтеся, буде весело, затишно і зовсім не офіційно!
+            Привіт, <span className="guest-name">{guestName}</span>! Ми вирішили, що життя занадто коротке, щоб не відсвяткувати наше «довго і щасливо» разом. Готуйтеся - буде весело, затишно і невимушено!
           </p>
           <div className="hero-date">1 серпня 2026</div>
         </div>
@@ -184,6 +184,12 @@ export default function WeddingApp({ guestName, inviteId, questions, initialAnsw
           <p>Тут ми скажемо «Так» і постараємось не розплакатися (але це неточно).</p>
           <div className="time-block">12:00</div>
           <p>Домініканський собор, Музейна площа, Львів</p>
+          {/* <div className="timeline">
+            <div className="timeline-item">
+              <span className="timeline-time">12:00</span>
+              <span className="timeline-text">Домініканський собор, Музейна площа, Львів.</span>
+            </div>
+          </div> */}
           <a
             href="https://maps.app.goo.gl/yWn4BCQw3duS3nz98"
             target="_blank"
@@ -206,12 +212,12 @@ export default function WeddingApp({ guestName, inviteId, questions, initialAnsw
         <span className="slide-counter">03 / 08</span>
         <div className="slide-inner">
           <div className="slide-emoji" aria-hidden="true">🚌</div>
-          <h2>Quest: Як потрапити на вечірку?</h2>
+          <h2>Як потрапити на вечірку?</h2>
           <p>Ми подбали, щоб ніхто не загубився по дорозі до пригод:</p>
           <div className="timeline">
             <div className="timeline-item">
               <span className="timeline-time">12:45</span>
-              <span className="timeline-text">Завантажуємось у трансфер прямо від собору.</span>
+              <span className="timeline-text">Завантажуємось у трансфер.</span>
             </div>
             <div className="timeline-item">
               <span className="timeline-time">14:00</span>
@@ -250,9 +256,9 @@ export default function WeddingApp({ guestName, inviteId, questions, initialAnsw
         <span className="slide-counter">04 / 08</span>
         <div className="slide-inner">
           <div className="slide-emoji" aria-hidden="true">💃🏻</div>
-          <h2>Party Time & Атмосфера</h2>
+          <h2>Атмосфера Святкування</h2>
           <p>Ніяких незручних костюмів (якщо ви самі того не хочете).</p>
-          <div className="dress-badge">Smart Casual & Happy Face</div>
+          <div className="dress-badge">Happy Summer Vibe 🌊</div>
           <p>Головне, щоб вам було зручно танцювати або релаксувати на травичці.</p>
           <div className="swatches-wrap">
             <span className="swatches-label">Палітра для натхнення:</span>
@@ -301,7 +307,7 @@ export default function WeddingApp({ guestName, inviteId, questions, initialAnsw
             <div className="info-card">
               <span className="info-card-icon">🎁</span>
               <h3>Подарунки</h3>
-              <p>Найкращий подарунок — це ви. Але якщо хочете зробити нам приємно, ми будемо вдячні за внесок у наш «сімейний репозиторій» 💵</p>
+              <p>Найкращий подарунок — це ви. Але якщо хочете зробити нам приємно, ми будемо вдячні за внесок у нашу «сімейну скарбничку» 💵</p>
             </div>
             <div className="info-card">
               <span className="info-card-icon">🌸</span>
@@ -311,7 +317,7 @@ export default function WeddingApp({ guestName, inviteId, questions, initialAnsw
             <div className="info-card">
               <span className="info-card-icon">👶</span>
               <h3>Діти</h3>
-              <p>Ваші малюки — це теж гості! Але попередьте нас, якщо їм потрібне окреме дитяче крісло чи меню.</p>
+              <p>Ваші малюки — це теж гості! Але попередьте нас, якщо їм потрібне окреме дитяче крісло.</p>
             </div>
           </div>
         </div>
@@ -327,7 +333,7 @@ export default function WeddingApp({ guestName, inviteId, questions, initialAnsw
         <div className="slide-inner">
           <div className="slide-emoji" aria-hidden="true">📞</div>
           <h2>Техпідтримка весілля</h2>
-          <p>Якщо ви заблукали, забули, який сьогодні рік, або просто хочете привітати — пишіть нашій феї-організатору:</p>
+          <p>Якщо ви заблукали, забули, який сьогодні рік, або ж маєте запитання — пишіть нашій організаторці:</p>
           <div className="contact-name">Надія</div>
             <a
               href="tel:+380937450263"
@@ -359,7 +365,7 @@ export default function WeddingApp({ guestName, inviteId, questions, initialAnsw
         <span className="slide-counter">08 / 08</span>
         <div className="slide-inner">
           <div className="slide-emoji" aria-hidden="true">📝</div>
-          <h2>RSVP (Ваш комміт)</h2>
+          <h2>Ваш зворотній зв'язок</h2>
           
           {submitted ? (
             <div className="success-message">
@@ -368,7 +374,7 @@ export default function WeddingApp({ guestName, inviteId, questions, initialAnsw
             </div>
           ) : (
             <form className="rsvp-form" onSubmit={handleSubmit} onClick={stop}>
-              <p>Будь ласка, заповніть форму до <strong>25 червня 2026 року</strong>, щоб ми встигли замовити достатньо ігристого!</p>
+              <p>Будь ласка, заповніть форму до <strong>30 червня 2026 року</strong>, щоб ми встигли замовити достатньо ігристого!</p>
               
               <div className="questionnaire-list">
                 {questions.map((q, idx) => (
@@ -398,10 +404,10 @@ export default function WeddingApp({ guestName, inviteId, questions, initialAnsw
                           placeholder={q.placeholder}
                           value={answers[idx] || ''}
                           onChange={(e) => handleTextChange(idx, e.target.value)}
-                          maxLength={1000}
+                          maxLength={500}
                           className="custom-textarea"
                         />
-                        <div className="char-count">{(answers[idx] || '').length} / 1000</div>
+                        <div className="char-count">{(answers[idx] || '').length} / 500</div>
                       </div>
                     )}
                   </div>

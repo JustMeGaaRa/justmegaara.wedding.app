@@ -494,9 +494,8 @@
   font-size: clamp(20px, 4vw, 32px);
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  background: var(--green);
+  background: var(--orange);
   color: var(--black);
-  transform: rotate(1deg);
 }
 
 /* ===== STICKER DECORATIONS ===== */

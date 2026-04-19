@@ -1,7 +1,6 @@
 'use client';
 
 import '../../wedding.css';
-import Link from 'next/link';
 
 export default function InviteNotFound() {
   return (
@@ -11,13 +10,8 @@ export default function InviteNotFound() {
           <div className="hero-frog" aria-hidden="true" style={{ fontSize: '100px' }}>😿</div>
           <h1 style={{ fontSize: 'clamp(28px, 6vw, 54px)' }}>Запрошення не знайдено</h1>
           <p style={{ maxWidth: '450px', margin: '0 auto' }}>
-            Ой! Здається, це посилання недійсне або ми помилково видалили його з нашого «репозиторію».
+            Ой! Здається, це посилання недійсне або ми помилково видалили його з нашого списку.
           </p>
-          <div style={{ marginTop: '20px' }}>
-            <Link href="/" className="neo-btn neo-btn--yellow">
-                На головну
-            </Link>
-          </div>
         </div>
         
         {/* Decorative stickers to match the theme */}
