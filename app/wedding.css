@@ -654,6 +654,7 @@
 .success-message {
   padding: 30px;
   background: var(--white);
+  color: var(--black);
   border: var(--border-w) solid var(--black);
   border-radius: var(--radius);
   box-shadow: var(--shadow-lg);

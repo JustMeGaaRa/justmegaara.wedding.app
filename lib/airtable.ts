@@ -92,7 +92,8 @@ export async function saveRSVP(
     invitationId: string,
     guestName: string,
     questions: QuestionnaireQuestion[],
-    answers: Record<number, string>
+    answers: Record<number, string>,
+    decision: 'yes' | 'no'
 ) {
     const table = getTable();
     if (!table) {
@@ -104,6 +105,7 @@ export async function saveRSVP(
         invitation_id: invitationId,
         guest_name: guestName,
         has_rsvp: true,
+        decision: decision,
     };
 
     // Map answers by question id

@@ -14,7 +14,8 @@ export default async function HostPage() {
     return {
       ...guest,
       opens: rsvp?.fields.opens || 0,
-      hasRSVP: !!rsvp?.fields.has_rsvp
+      hasRSVP: !!rsvp?.fields.has_rsvp,
+      decision: rsvp?.fields.decision as 'yes' | 'no' | undefined
     };
   });
   

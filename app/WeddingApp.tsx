@@ -137,9 +137,28 @@ export default function WeddingApp({ guestName, inviteId, questions, initialAnsw
     e.preventDefault()
     setIsSubmitting(true)
     setError(null)
-    
+
     try {
-      const result = await submitRSVP(inviteId, guestName, answers)
+      const result = await submitRSVP(inviteId, guestName, answers, 'yes')
+      if (result.success) {
+        setSubmitted(true)
+      } else {
+        setError(result.error || 'Щось пішло не так. Спробуйте ще раз.')
+      }
+    } catch (err) {
+      setError('Помилка з\'єднання з сервером.')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
+  const handleDecline = async (e: React.MouseEvent) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    setError(null)
+
+    try {
+      const result = await submitRSVP(inviteId, guestName, answers, 'no')
       if (result.success) {
         setSubmitted(true)
       } else {
@@ -220,7 +239,7 @@ export default function WeddingApp({ guestName, inviteId, questions, initialAnsw
               <span className="timeline-text">Завантажуємось у трансфер.</span>
             </div>
             <div className="timeline-item">
-              <span className="timeline-time">14:00</span>
+              <span className="timeline-time">13:30</span>
               <span className="timeline-text">Прибуваємо в «Сад / Garden» (с. Хоросно). Тут починається найцікавіше!</span>
             </div>
           </div>
@@ -328,32 +347,32 @@ export default function WeddingApp({ guestName, inviteId, questions, initialAnsw
       </section>
 
       {/* ══════ SLIDE 7 — CONTACT ══════ */}
-      <section id="slide-6" className="slide slide--purple">
+      <section id="slide-6" className="slide slide--blue">
         <span className="slide-counter">07 / 08</span>
         <div className="slide-inner">
           <div className="slide-emoji" aria-hidden="true">📞</div>
           <h2>Техпідтримка весілля</h2>
           <p>Якщо ви заблукали, забули, який сьогодні рік, або ж маєте запитання — пишіть нашій організаторці:</p>
           <div className="contact-name">Надія</div>
-            <a
-              href="tel:+380937450263"
-              className="neo-btn neo-btn--green"
-              onClick={stop}
-            >
-              <IconPhone />
-              +380 93 745 02 63
-            </a>
-            <a
-              href="https://t.me/nadya_chayka"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="neo-btn neo-btn--orange"
-              onClick={stop}
-            >
-              <IconTelegram />
-              @nadya_chayka
-            </a>
-          </div>
+          <a
+            href="tel:+380937450263"
+            className="neo-btn neo-btn--green"
+            onClick={stop}
+          >
+            <IconPhone />
+            +380 93 745 02 63
+          </a>
+          <a
+            href="https://t.me/nadya_chayka"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="neo-btn neo-btn--orange"
+            onClick={stop}
+          >
+            <IconTelegram />
+            @nadya_chayka
+          </a>
+        </div>
         <div className="scroll-hint">
           <span>Гортай</span>
           <IconChevronDown />
@@ -361,34 +380,36 @@ export default function WeddingApp({ guestName, inviteId, questions, initialAnsw
       </section>
 
       {/* ══════ SLIDE 8 — RSVP ══════ */}
-      <section id="slide-7" className="slide slide--orange">
+      <section id="slide-7" className="slide slide--purple">
         <span className="slide-counter">08 / 08</span>
         <div className="slide-inner">
           <div className="slide-emoji" aria-hidden="true">📝</div>
           <h2>Ваш зворотній зв'язок</h2>
-          
+
           {submitted ? (
             <div className="success-message">
               <h3>Дякуємо, {guestName}!</h3>
-              <p>Ваші відповіді збережено. До зустрічі на весіллі!</p>
+              <br />
+              <p>Ваші відповіді збережено!</p>
+              <p>(Не хвилюйтесь, якщо випадково натиснули не те - ми можемо змінити відповідь, просто оновіть сторінку і відправте форму ще раз)</p>
             </div>
           ) : (
             <form className="rsvp-form" onSubmit={handleSubmit} onClick={stop}>
               <p>Будь ласка, заповніть форму до <strong>30 червня 2026 року</strong>, щоб ми встигли замовити достатньо ігристого!</p>
-              
+
               <div className="questionnaire-list">
                 {questions.map((q, idx) => (
                   <div key={idx} className="rsvp-item">
                     <div className="rsvp-item-label">{q.text}</div>
-                    
+
                     {q.type === 'single-option' ? (
                       <div className="checkbox-row">
                         {q.options?.map((opt, optIdx) => (
                           <label key={optIdx} className="custom-checkbox-label">
-                            <input 
-                              type="radio" 
-                              name={`q-${idx}`} 
-                              value={opt} 
+                            <input
+                              type="radio"
+                              name={`q-${idx}`}
+                              value={opt}
                               checked={answers[idx] === opt}
                               onChange={() => handleOptionChange(idx, opt)}
                               required
@@ -400,7 +421,7 @@ export default function WeddingApp({ guestName, inviteId, questions, initialAnsw
                       </div>
                     ) : (
                       <div className="textarea-wrapper">
-                        <textarea 
+                        <textarea
                           placeholder={q.placeholder}
                           value={answers[idx] || ''}
                           onChange={(e) => handleTextChange(idx, e.target.value)}
@@ -416,12 +437,21 @@ export default function WeddingApp({ guestName, inviteId, questions, initialAnsw
 
               {error && <div className="error-message" style={{ color: '#ff572d', marginBottom: '1rem', fontWeight: 'bold' }}>{error}</div>}
 
-              <button 
-                type="submit" 
-                className="neo-btn neo-btn--green submit-btn" 
+              <button
+                type="submit"
+                className="neo-btn neo-btn--green submit-btn"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? 'Відправляємо...' : 'Ми будемо!'}
+              </button>
+              <button
+                type="button"
+                className="neo-btn neo-btn--pink submit-btn"
+                onClick={handleDecline}
+                disabled={isSubmitting}
+                style={{ marginTop: '-10px' }}
+              >
+                {isSubmitting ? 'Відправляємо...' : 'На жаль, не зможу'}
               </button>
             </form>
           )}
