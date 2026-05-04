@@ -6,6 +6,7 @@ export interface QuestionnaireQuestion {
   text: string;
   options?: string[];
   placeholder?: string;
+  required?: boolean;
 }
 
 export function getQuestionnaire(): QuestionnaireQuestion[] {

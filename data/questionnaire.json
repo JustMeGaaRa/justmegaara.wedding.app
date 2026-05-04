@@ -7,7 +7,8 @@
       "Потрібен",
       "Буду на своєму літаку",
       "Не потрібен"
-    ]
+    ],
+    "required": true
   },
   {
     "id": "transfer_to_location",
@@ -16,13 +17,15 @@
     "options": [
       "Їду з усіма",
       "Доберусь сам"
-    ]
+    ],
+    "required": true
   },
   {
     "id": "party_level",
     "type": "textarea",
     "text": "Вкажіть, хто з вашої сім'ї буде на святкуванні:",
-    "placeholder": "Наприклад: Я, чоловік, діти (Іван та Марія)."
+    "placeholder": "Наприклад: Я, чоловік, діти (Іван та Марія).",
+    "required": true
   },
   {
     "id": "food_allergies",

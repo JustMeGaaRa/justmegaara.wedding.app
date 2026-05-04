@@ -651,6 +651,27 @@
   cursor: not-allowed;
 }
 
+.error-message {
+  padding: 14px 20px;
+  background: var(--white);
+  color: #ff572d;
+  border: var(--border-w) solid #ff572d;
+  border-radius: var(--radius);
+  box-shadow: 4px 4px 0 #ff572d;
+  font-weight: 700;
+  font-size: 14px;
+  margin-bottom: 1.5rem;
+  text-align: left;
+  animation: errorShake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+@keyframes errorShake {
+  10%, 90% { transform: translate3d(-1px, 0, 0); }
+  20%, 80% { transform: translate3d(2px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+  40%, 60% { transform: translate3d(4px, 0, 0); }
+}
+
 .success-message {
   padding: 30px;
   background: var(--white);

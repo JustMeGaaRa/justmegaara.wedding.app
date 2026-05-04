@@ -135,6 +135,14 @@ export default function WeddingApp({ guestName, inviteId, questions, initialAnsw
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    
+    // Validation
+    const missingFields = questions.filter((q, idx) => q.required && !answers[idx])
+    if (missingFields.length > 0) {
+      setError('Будь ласка, дайте відповідь на всі обов’язкові запитання (вони позначені зірочкою *).')
+      return
+    }
+
     setIsSubmitting(true)
     setError(null)
 
@@ -400,7 +408,10 @@ export default function WeddingApp({ guestName, inviteId, questions, initialAnsw
               <div className="questionnaire-list">
                 {questions.map((q, idx) => (
                   <div key={idx} className="rsvp-item">
-                    <div className="rsvp-item-label">{q.text}</div>
+                    <div className="rsvp-item-label">
+                      {q.text}
+                      {q.required && <span style={{ color: '#ff572d', marginLeft: '4px' }}>*</span>}
+                    </div>
 
                     {q.type === 'single-option' ? (
                       <div className="checkbox-row">
@@ -412,7 +423,6 @@ export default function WeddingApp({ guestName, inviteId, questions, initialAnsw
                               value={opt}
                               checked={answers[idx] === opt}
                               onChange={() => handleOptionChange(idx, opt)}
-                              required
                             />
                             <span className="checkbox-box" />
                             <span className="option-text">{opt}</span>
@@ -435,7 +445,7 @@ export default function WeddingApp({ guestName, inviteId, questions, initialAnsw
                 ))}
               </div>
 
-              {error && <div className="error-message" style={{ color: '#ff572d', marginBottom: '1rem', fontWeight: 'bold' }}>{error}</div>}
+              {error && <div className="error-message">{error}</div>}
 
               <button
                 type="submit"
